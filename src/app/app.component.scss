@@ -1,0 +1,6 @@
+main {
+  display: grid;
+  // grid 6 columns, 1fr each, with margin of 1rem
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 1rem;
+}

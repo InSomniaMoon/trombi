@@ -1,0 +1,10 @@
+<img [src]="'https://placehold.co'+ student.picture" alt="">
+<div class="row-wrapper">
+  <p class="name">
+    {{student.name.first}} <br> {{student.name.last}}
+  </p>
+  <img [src]="'https://placehold.co'+ student.company.logo" alt="">
+</div>
+<button class="hovered" (click)="openDetails()">
+  Voir les details
+</button>
