@@ -10,31 +10,6 @@ import { StudentService } from '../../core/services/student.service';
   imports: [CommonModule, PrettyJsonPipe],
   templateUrl: './student-item-details.component.html',
   styleUrl: './student-item-details.component.scss',
-
-  animations: [
-    // open and close animation with a popin effect
-
-    trigger('openClose', [
-      state('open', style({
-        opacity: 1,
-        transform: 'scale(1)',
-        height: "100%",
-        width: "100%",
-      })),
-      state('closed', style({
-        opacity: 0,
-        transform: 'scale(0.1)',
-        height: "0%",
-        width: "0%",
-      })),
-      transition('open => closed', [
-        animate('0.3s')
-      ]),
-      transition('closed => open', [
-        animate('0.3s')
-      ]),
-    ]),
-  ]
 })
 export class StudentItemDetailsComponent {
 
@@ -42,8 +17,19 @@ export class StudentItemDetailsComponent {
 
   student = this.$Student.seletedStudent
 
+  isPopinVisible: boolean = true;
+
   closeDetails: () => void = () => {
-    this.$Student.seletedStudent.update(() => null);
+    // this.$Student.seletedStudent.update(() => null);
+    this.isPopinVisible = !this.isPopinVisible;
+
+    if (!this.isPopinVisible) {
+      setTimeout(() => {
+        this.$Student.seletedStudent.update(() => null);
+        this.isPopinVisible = !this.isPopinVisible;
+      }, 300); // Ajustez le délai en fonction de la durée de votre animation (300ms dans cet exemple)
+    }
+
   }
   @HostListener('click', ['$event.target'])
   onClick(div: HTMLElement): void {

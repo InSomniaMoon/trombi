@@ -5,6 +5,6 @@
   <p> There are no items. </p>
   }
 </main>
-<app-student-item-details [@openClose]=" isDetailsOpen() ? 'open' : 'closed'" />
+<app-student-item-details [ngClass]="{'show': isDetailsOpen()}" />
 <!-- TODO: create student modal -->
 <router-outlet></router-outlet>

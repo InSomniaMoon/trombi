@@ -1,5 +1,5 @@
 :host {
-  display: flex;
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -24,4 +24,20 @@
   justify-content: space-between;
   margin: auto;
   color: black;
+
+  animation: popin .3s;
+  transition: all .3s;
+}
+
+
+@keyframes popin {
+  0% {
+    transform: scale(0.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+
 }

@@ -18,8 +18,6 @@ export class StudentItemComponent {
   @Input({ required: true }) student!: Student
 
   openDetails: () => void = () => {
-    console.log(this.$Student.seletedStudent());
     this.$Student.seletedStudent.update(() => this.student);
-    console.log(this.$Student.seletedStudent());
   };
 }
