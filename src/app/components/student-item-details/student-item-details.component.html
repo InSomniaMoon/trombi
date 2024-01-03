@@ -20,5 +20,10 @@
       <td class="company"><img [src]="'https://placehold.co'+ student()?.company?.logo +'/020366/fff'" alt=""> {{
         student()?.company?.name }}</td>
     </tr>
+    <tr>
+      <td colspan="3">
+        <button class="btn btn-danger" (click)="deleteStudent()">Suprimer</button>
+      </td>
+    </tr>
   </tbody>
 </table>

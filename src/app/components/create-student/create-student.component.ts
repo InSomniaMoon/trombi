@@ -37,7 +37,7 @@ import { FileFieldComponent } from '../file-field/file-field.component';
           <label for="phone">Phone</label>
         </div>
         <app-file-field  name="photo" id="photo" (fileChange)="studentPicture = $event">Photo</app-file-field>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-success">Create</button>
       </form>
       `,
   styleUrl: './create-student.component.scss',

@@ -2,45 +2,61 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  // box shadow on borders bottom and left
-  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.4);
   border-radius: 5px;
-  padding: 1rem;
-  // effet noir et blanc
+  margin: 1rem;
+  cursor: pointer;
+  animation: fade-in 0.5s ease-in-out 0s;
+
+
   filter: grayscale(100%);
   transition: all 0.5s ease 0s;
 
-  // set hover effect
   &:hover {
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.4);
+    // move up and left 5px
+    transform: translate3d(-3px, -3px, 0);
     filter: grayscale(0%);
 
-    .hovered {
-      // opacity: 0.6;
+    .avatar {
+      border-radius: 0;
+      transform: translateY(0);
+
+      --mask:
+        radial-gradient(1.97rem at 50% calc(100% - 2.70rem), #000 99%, #0000 101%) calc(50% - 2rem) 0/4rem 100%,
+        radial-gradient(1.97rem at 50% calc(100% + 1.70rem), #0000 99%, #000 101%) 50% calc(100% - 1rem)/4rem 100% repeat-x;
+      -webkit-mask: var(--mask);
+      mask: var(--mask);
+
 
     }
 
+    .informations {
+
+      padding-top: 41%;
+      padding-bottom: 30%;
+
+      margin-top: -11%;
+      // --mask:
+      //   radial-gradient(1.97rem at 50% 2.70rem, #000 99%, #0000 101%) calc(50% - 2rem) 0/4rem 100%,
+      //   radial-gradient(1.97rem at 50% -1.7rem, #0000 99%, #000 101%) 50% 1rem/4rem 100% repeat-x;
+      // -webkit-mask: var(--mask);
+      // mask: var(--mask);
+    }
   }
 }
 
-.hovered {
-  position: absolute;
-  left: 0;
-  top: 0;
+.avatar {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  border-radius: 100%;
 
-  border: 0;
-  /* Set bg and hide the element + animation */
-  background-color: #000;
-  color: white;
-  opacity: 0;
-  transition: all 0.5s ease 0s;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  border-radius: 5px;
-  align-items: center;
-  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  transform: translateY(50%);
+}
+
+.logo {
+  padding-left: 10px;
 }
 
 .name {
@@ -48,9 +64,37 @@
   font-weight: bold;
   flex: 1;
   text-align: center;
+  margin: auto;
 }
 
 .row-wrapper {
   display: flex;
   padding-top: 10px;
+}
+
+.informations {
+  transition: all 0.3s ease 0s;
+  padding: 1rem;
+  padding-top: 60%;
+  background-color: #93E677;
+  border-radius: 0 0 5px 5px;
+}
+
+.company {
+  font-size: 0.8rem;
+  font-style: italic;
+  flex: 1;
+  text-align: center;
+  display: none;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(1vh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

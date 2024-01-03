@@ -12,7 +12,7 @@ import { AfterViewInit, Component, ContentChildren, EventEmitter, HostListener, 
   <div class="wrapper" [style.transform]="isPopinVisible ? 'scale(1)' : 'scale(0)'">
     <div class="head">
       <h2>{{HeadTitle}} </h2>
-      <button (click)="closeDetails()" class="btn-close">X</button>
+      <button (click)="closeDetails()" class="btn btn-danger">X</button>
     </div>
     <div >
       <ng-content />

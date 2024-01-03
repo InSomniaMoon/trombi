@@ -31,10 +31,10 @@ export class AppComponent {
 
   students: Signal<Student[]> = this.$Student.students;
 
-  isDetailsOpen = computed(() => this.$Student.seletedStudent() !== null);
+  isDetailsOpen = computed(() => this.$Student.selectedStudent() !== null);
 
   closeStudentDetails() {
-    this.$Student.seletedStudent.update(() => null);
+    this.$Student.selectedStudent.update(() => null);
   }
 
   openCreateStudent() {

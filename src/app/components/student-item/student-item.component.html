@@ -1,11 +1,13 @@
-<img [src]="'https://randomuser.me/api/portraits/men/'+idpeople+'.jpg'" alt="">
+<img [src]="'https://randomuser.me/api/portraits/men/'+idpeople+'.jpg'" class="avatar" alt="">
 <!-- <img [src]="'https://placehold.co'+ student.picture +'/020366/fff'" alt=""> -->
-<div class="row-wrapper">
-  <p class="name">
-    {{student.name.first}} <br> {{student.name.last}}
+<div class="informations">
+  <div class="row-wrapper">
+    <p class="name">
+      {{student.name.first}} <br> {{student.name.last}}
+    </p>
+    <img [src]="'https://placehold.co'+ student.company.logo +'/020366/fff'" class="logo" alt="">
+  </div>
+  <p class="company">
+    {{student.company.name}}
   </p>
-  <img [src]="'https://placehold.co'+ student.company.logo +'/020366/fff'" alt="">
 </div>
-<button class="hovered" (click)="openDetails()">
-  Voir les details
-</button>

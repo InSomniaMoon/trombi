@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { StudentService } from '../../core/services/student.service';
 import { Student } from '../../core/types/student.type';
 
@@ -11,8 +11,14 @@ import { Student } from '../../core/types/student.type';
   ],
   templateUrl: './student-item.component.html',
   styleUrl: './student-item.component.scss',
+
 })
 export class StudentItemComponent {
+
+  @HostListener('click', ['$event.target'])
+  onClick(div: HTMLElement): void {
+    this.openDetails();
+  }
 
   idpeople = Math.floor(Math.random() * 100) + 1;
 
@@ -20,6 +26,6 @@ export class StudentItemComponent {
   @Input({ required: true }) student!: Student
 
   openDetails: () => void = () => {
-    this.$Student.seletedStudent.update(() => this.student);
+    this.$Student.selectedStudent.update(() => this.student);
   };
 }
