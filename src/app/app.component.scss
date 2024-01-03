@@ -1,8 +1,38 @@
 main {
   display: grid;
-  // grid 6 columns, 1fr each, with margin of 1rem
-  grid-template-columns: repeat(6, 1fr);
+
+  grid-template-columns: repeat(10, 1fr);
   grid-gap: 1rem;
+
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(8, 1fr);
+
+  }
+
+
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(6, 1fr);
+
+  }
+
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+
+  }
+
+
+  @media (max-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+
+  @media (max-width: 440px) {
+    grid-template-columns: repeat(1, 1fr);
+
+  }
 }
 
 //floating button
@@ -21,6 +51,7 @@ main {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   transition: all .3s;
   font-size: 3rem;
+
   &:hover {
     background-color: rgb(16, 136, 0);
   }

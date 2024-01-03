@@ -118,3 +118,12 @@ form {
     background-color: #a00;
   }
 }
+
+.row-wrapper {
+  display: flex;
+  padding-top: 10px;
+}
+
+.form-control {
+  flex: 1;
+}
