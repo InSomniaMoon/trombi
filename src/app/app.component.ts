@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, Signal, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CreateStudentComponent } from './components/create-student/create-student.component';
@@ -11,7 +11,8 @@ import { Student } from './core/types/student.type';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    NgClass,
     RouterOutlet,
     StudentItemComponent,
     StudentItemDetailsComponent,
@@ -39,7 +40,6 @@ export class AppComponent {
 
   openCreateStudent() {
     this.showCreateStudent.set(true);
-    console.log(this.showCreateStudent());
   }
   closeCreateStudent() {
     this.showCreateStudent.set(false);

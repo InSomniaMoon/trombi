@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, EventEmitter, HostListener, Input, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 
 @Component({
   selector: 'app-modal',
   standalone: true,
   imports: [
-    CommonModule,
   ],
   template: `
   <div class="wrapper" [style.transform]="isPopinVisible ? 'scale(1)' : 'scale(0)'">

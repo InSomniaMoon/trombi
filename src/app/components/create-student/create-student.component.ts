@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { StudentService } from '../../core/services/student.service';
@@ -8,7 +7,6 @@ import { FileFieldComponent } from '../file-field/file-field.component';
   selector: 'app-create-student',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     FileFieldComponent,
   ],
@@ -46,7 +44,7 @@ import { FileFieldComponent } from '../file-field/file-field.component';
           <label for="phone">Phone</label>
         </div>
         <app-file-field  name="photo" id="photo" (fileChange)="studentPicture = $event">Photo</app-file-field>
-        <button type="submit" class="btn btn-success">Create</button>
+        <button type="submit" class="btn btn-success" [disabled]="!createStudent.valid">Create</button>
       </form>
       `,
   styleUrl: './create-student.component.scss',
@@ -69,9 +67,6 @@ export class CreateStudentComponent {
 
     if (!this.studentPicture)
       return;
-
-    console.log(form.value);
-
 
     this.$Student.addStudent({
       id: 0,

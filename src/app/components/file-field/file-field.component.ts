@@ -1,11 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-file-field',
   standalone: true,
   imports: [
-    CommonModule,
   ],
   template: `
   <div class="form-group">
@@ -21,7 +19,6 @@ export class FileFieldComponent {
 
   @HostListener("change", ["$event.target.files"]) onFileChange(input: FileList) {
     //liste des fichiers uploadés
-    console.log(input.item(0));
     if (input.item(0))
       this.fileChange.emit(input.item(0)!);
   }

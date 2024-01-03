@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input } from '@angular/core';
 import { StudentService } from '../../core/services/student.service';
 import { Student } from '../../core/types/student.type';
@@ -7,7 +6,6 @@ import { Student } from '../../core/types/student.type';
   selector: 'app-student-item',
   standalone: true,
   imports: [
-    CommonModule,
   ],
   templateUrl: './student-item.component.html',
   styleUrl: './student-item.component.scss',
