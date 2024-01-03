@@ -7,4 +7,5 @@ export interface Student {
   phone: string;
   picture: string;
   company: Company;
+  sexe: string;
 }

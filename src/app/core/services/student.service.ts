@@ -7,24 +7,8 @@ import { Student } from '../types/student.type';
   providedIn: 'root'
 })
 export class StudentService {
-  deleteStudent(student: Student) {
-    this.students.set(this.students().filter(s => s.id !== student.id));
-
-    localStorage.setItem('students', JSON.stringify(this.students()));
-    if (this.selectedStudent() && this.selectedStudent()?.id === student.id) {
-      this.selectedStudent.set(null);
-    }
-
-  }
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    effect(() => {
-      console.log("students effect");
-      
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('students', JSON.stringify(this.students()));
-      }
-    });
   }
 
   /**
@@ -44,7 +28,7 @@ export class StudentService {
    */
   getStudents(): Student[] {
     if (isPlatformBrowser(this.platformId)) {
-      return JSON.parse(localStorage.getItem('students') || '{}');
+      return JSON.parse(localStorage.getItem('students') || '[]');
     }
     return [];
   }
@@ -60,7 +44,25 @@ export class StudentService {
   addStudent(student: Student) {
     student.id = this.getNewId();
     this.students().push(student);
+    localStorage.setItem('students', JSON.stringify(this.students()));
     return of();
+  }
+
+  /**
+   * Delete a student
+   * @param student The student to delete
+   * @example
+   * const student = { name: 'John', age: 20, id: 1 };
+   * deleteStudent(student);
+   * @returns
+   */
+  deleteStudent(student: Student) {
+    this.students.set(this.students().filter(s => s.id !== student.id));
+
+    localStorage.setItem('students', JSON.stringify(this.students()));
+    if (this.selectedStudent() && this.selectedStudent()?.id === student.id) {
+      this.selectedStudent.set(null);
+    }
   }
 
   private studentsIds = computed(() => this.students().map(s => s.id));

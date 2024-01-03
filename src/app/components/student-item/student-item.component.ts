@@ -25,6 +25,22 @@ export class StudentItemComponent {
   constructor(private $Student: StudentService) { }
   @Input({ required: true }) student!: Student
 
+  sexe = () => {
+    switch (this.student.sexe) {
+      case "H":
+        return "men";
+      case "F":
+        return "women";
+      default:
+        throw new Error("Invalid sexe");
+    }
+  }
+
+  /**
+   * Open the student details
+   * @example
+   * openDetails();
+   */
   openDetails: () => void = () => {
     this.$Student.selectedStudent.update(() => this.student);
   };

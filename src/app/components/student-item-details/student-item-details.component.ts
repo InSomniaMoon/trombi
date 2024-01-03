@@ -19,6 +19,5 @@ export class StudentItemDetailsComponent {
 
   deleteStudent() {
     this.$Student.deleteStudent(this.student()!)
-
   }
 }

@@ -6,6 +6,6 @@
   <app-student-item-details />
 </app-modal>
 <app-modal [ngClass]="{'show': showCreateStudent()}" HeadTitle="Create Student" (onModalClose)="closeCreateStudent()">
-  <app-create-student />
+  <app-create-student (onModalClose)="closeCreateStudent()" />
 </app-modal>
 <router-outlet></router-outlet>

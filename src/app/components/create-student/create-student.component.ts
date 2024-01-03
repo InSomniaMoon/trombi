@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { StudentService } from '../../core/services/student.service';
 import { FileFieldComponent } from '../file-field/file-field.component';
@@ -14,6 +14,15 @@ import { FileFieldComponent } from '../file-field/file-field.component';
   ],
   template: `
       <form #createStudent="ngForm" (ngSubmit)="submitForm(createStudent)">
+        <div style="padding-bottom: 10px;">
+          <label for="sexe">Sexe</label>
+          <br/>
+          <!-- radio btns with the labels Homme, Femme ad the values H, F -->
+          <input type="radio" id="Hsexe" name="sexe" value="H" ngModel required />
+          <label for="Hsexe">Homme</label>
+          <input type="radio" id="Fsexe" name="sexe" value="F" ngModel required />
+          <label for="Fsexe">Femme</label>
+        </div>
         <div class="form-group">
           <input type="text" id="firstName" name="firstName" placeholder="" class="form-control" ngModel required />
           <label for="firstName">Prénom</label>
@@ -43,8 +52,8 @@ import { FileFieldComponent } from '../file-field/file-field.component';
   styleUrl: './create-student.component.scss',
 })
 export class CreateStudentComponent {
-  @Output()
-  modalVisible = new EventEmitter<boolean>();
+  @Output("onModalClose")
+  modalVisible = new EventEmitter<void>();
 
   studentPicture!: File;
 
@@ -61,6 +70,9 @@ export class CreateStudentComponent {
     if (!this.studentPicture)
       return;
 
+    console.log(form.value);
+
+
     this.$Student.addStudent({
       id: 0,
       name: {
@@ -74,9 +86,10 @@ export class CreateStudentComponent {
         name: form.value.etp,
       },
       picture: `/${this.studentPicture.name}`,
-    }).subscribe(() => {
-      form.reset();
-    });
+      sexe: form.value.sexe,
+    })
+    form.reset();
+    this.modalVisible.emit();
   }
 
   onStudentPictureChange(file: File) {
