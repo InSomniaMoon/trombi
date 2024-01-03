@@ -43,6 +43,10 @@ export class StudentService {
    */
   addStudent(student: Student) {
     student.id = this.getNewId();
+    student.name.first = student.name.first[0].toUpperCase() + student.name.first.slice(1);
+    student.name.last = student.name.last[0].toUpperCase() + student.name.last.slice(1);
+    student.company.name = student.company.name[0].toUpperCase() + student.company.name.slice(1);
+    student.email = student.email.toLowerCase();
     this.students().push(student);
     localStorage.setItem('students', JSON.stringify(this.students()));
     return of();
