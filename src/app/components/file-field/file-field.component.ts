@@ -19,13 +19,12 @@ export class FileFieldComponent {
 
   @HostListener("change", ["$event.target.files"]) onFileChange(input: FileList) {
     //liste des fichiers uploadés
-    if (input.item(0))
-      this.fileChange.emit(input.item(0)!);
+    this.fileChange.emit(input.item(0) || undefined);
   }
 
   @Input({ required: true }) name!: string;
   @Input({ required: true }) id!: string;
 
-  @Output() fileChange = new EventEmitter<File>();
+  @Output() fileChange = new EventEmitter<File | undefined>();
 
 }
