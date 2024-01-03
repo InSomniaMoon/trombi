@@ -1,4 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { of } from 'rxjs';
 import { Student } from '../types/student.type';
 
 @Injectable({
@@ -6,43 +8,25 @@ import { Student } from '../types/student.type';
 })
 export class StudentService {
 
-  constructor() { }
-
-  seletedStudent = signal<Student | null>(null, { equal: (a, b) => a?.id === b?.id });
-
-  getStudents(): Student[] {
-    return [
-      {
-        id: 1,
-        name: {
-          first: 'John',
-          last: 'Doe',
-        },
-        email: 'john.doe@test.fr',
-        company: {
-          name: 'Test',
-          logo: '/70',
-        },
-        phone: '0123456789',
-        picture: '/90x120',
-      },
-      {
-        id: 2,
-        name: {
-          first: 'Jane',
-          last: 'Doe',
-        },
-        email: "jane.doe@test.fr",
-        company: {
-          name: 'Test',
-          logo: '/70',
-        },
-        phone: '0123456789',
-        picture: '/90x120',
-      }
-
-    ];
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
 
   }
 
+  seletedStudent = signal<Student | null>(null, { equal: (a, b) => a?.id === b?.id });
+
+  students = signal<Student[]>(this.getStudents());
+
+  getStudents(): Student[] {
+    if (isPlatformBrowser(this.platformId)) {
+      return JSON.parse(localStorage.getItem('students') || '{}');
+    }
+    return [];
+  }
+
+  addStudent(student: Student) {
+    student.id = this.students().length + 1;
+    this.students().push(student);
+    localStorage.setItem('students', JSON.stringify(this.students()));
+    return of();
+  }
 }

@@ -1,10 +1,11 @@
+<button class="add-student__button" (click)="openCreateStudent()">+</button>
 <main>
-  @for (student of students; track student.id) { <app-student-item [student]="student" />}
-  @empty
-  {
-  <p> There are no items. </p>
-  }
+  @for (student of students(); track student.id) { <app-student-item [student]="student" />}
 </main>
-<app-student-item-details [ngClass]="{'show': isDetailsOpen()}" />
-<!-- TODO: create student modal -->
+<app-modal [ngClass]="{'show': isDetailsOpen()}" HeadTitle="Student Details" (onModalClose)="closeStudentDetails()">
+  <app-student-item-details />
+</app-modal>
+<app-modal [ngClass]="{'show': showCreateStudent()}" HeadTitle="Create Student" (onModalClose)="closeCreateStudent()">
+  <app-create-student />
+</app-modal>
 <router-outlet></router-outlet>

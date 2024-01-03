@@ -14,6 +14,8 @@ import { Student } from '../../core/types/student.type';
 })
 export class StudentItemComponent {
 
+  idpeople = Math.floor(Math.random() * 100) + 1;
+
   constructor(private $Student: StudentService) { }
   @Input({ required: true }) student!: Student
 

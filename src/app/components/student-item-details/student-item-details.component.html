@@ -1,5 +1,24 @@
-<div class="wrapper" [style.transform]="isPopinVisible?'scale(1)':'scale(0)'" >
-  <pre>
-    {{ student() | prettyJson}}
-  </pre>
-</div>
+<table>
+  <tbody>
+    <tr>
+      <td rowspan="4">
+        <img [src]="'https://placehold.co'+ student()?.picture +'/020366/fff'" alt="">
+      </td>
+      <td>Identité de l'étudiant•e :</td>
+      <td>{{ student()?.name?.first }} {{student()?.name?.last}}</td>
+    </tr>
+    <tr>
+      <td>Email :</td>
+      <td>{{ student()?.email }}</td>
+    </tr>
+    <tr>
+      <td>Télephone :</td>
+      <td>{{ student()?.phone }}</td>
+    </tr>
+    <tr>
+      <td>Entreprise d'accueil :</td>
+      <td class="company"><img [src]="'https://placehold.co'+ student()?.company?.logo +'/020366/fff'" alt=""> {{
+        student()?.company?.name }}</td>
+    </tr>
+  </tbody>
+</table>

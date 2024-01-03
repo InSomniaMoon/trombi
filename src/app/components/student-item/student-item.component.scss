@@ -6,12 +6,19 @@
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   padding: 1rem;
+  // effet noir et blanc
+  filter: grayscale(100%);
+  transition: all 0.5s ease 0s;
 
   // set hover effect
   &:hover {
+    filter: grayscale(0%);
+
     .hovered {
-      opacity: 0.6;
+      // opacity: 0.6;
+
     }
+
   }
 }
 
