@@ -39,7 +39,17 @@
 
 @keyframes popin {
   0% {
-    transform: scale(0.1);
+    rotate: 360deg;
+    transform: scale(0.01);
+  }
+
+  90% {
+    rotate: 0;
+    transform: scale(1.5);
+  }
+
+  95% {
+    transform: scale(1.2);
   }
 
   100% {
