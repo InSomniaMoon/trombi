@@ -1,3 +1,5 @@
+<app-navbar />
+@if (isConnected()|async) {
 <button class="add-student__button" (click)="openCreateStudent()">+</button>
 <main>
   @for (student of students(); track student.id) { <app-student-item [student]="student" />}
@@ -8,3 +10,8 @@
 <app-modal [ngClass]="{'show': showCreateStudent()}" HeadTitle="Create Student" (onModalClose)="closeCreateStudent()">
   <app-create-student (onModalClose)="closeCreateStudent()" />
 </app-modal>
+<app-mouse-conainer />
+}
+@else {
+<app-login />
+}

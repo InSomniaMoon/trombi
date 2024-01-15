@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  width: 100%;
+  // dispatch the items to the left and right
+  justify-content: space-between;
+  background-color: #93E677;
+}
+
+.buttons-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button {
+    
+    margin: 0 10px;
+    padding: 0 10px;
+    font-size: xx-large;
+    border-radius: 5px;
+    color: white;
+    // css reset
+    border: none;
+    background-color: transparent;
+    // make the button look like a link
+
+    cursor: pointer;
+
+  }
+
+  .question {
+    background-color: #499a2e;
+
+    &:hover {
+      background-color: #3c7e24;
+    }
+  }
+
+  .information {
+    background-color: #9a962e;
+
+    &:hover {
+      background-color: #7e6d24;
+    }
+  }
+
+}

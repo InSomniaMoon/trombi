@@ -1,38 +1,38 @@
 main {
-  display: grid;
-
-  grid-template-columns: repeat(10, 1fr);
-  grid-gap: 1rem;
-
-
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(8, 1fr);
-
-  }
+  display: flex;
+  flex-wrap: wrap;
+  // grid-template-columns: repeat(10, 1fr);
+  // grid-gap: 1rem;
 
 
-  @media (max-width: 992px) {
-    grid-template-columns: repeat(6, 1fr);
+  // @media (max-width: 1200px) {
+  //   grid-template-columns: repeat(8, 1fr);
 
-  }
-
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(4, 1fr);
-
-  }
+  // }
 
 
-  @media (max-width: 576px) {
-    grid-template-columns: repeat(2, 1fr);
+  // @media (max-width: 992px) {
+  //   grid-template-columns: repeat(6, 1fr);
 
-  }
+  // }
 
 
-  @media (max-width: 440px) {
-    grid-template-columns: repeat(1, 1fr);
+  // @media (max-width: 768px) {
+  //   grid-template-columns: repeat(4, 1fr);
 
-  }
+  // }
+
+
+  // @media (max-width: 576px) {
+  //   grid-template-columns: repeat(2, 1fr);
+
+  // }
+
+
+  // @media (max-width: 440px) {
+  //   grid-template-columns: repeat(1, 1fr);
+
+  // }
 }
 
 //floating button
