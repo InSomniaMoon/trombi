@@ -4,7 +4,7 @@
 <main>
   @if (isQuestionSent()|async) {
   <!-- TODO: faire la page de questions -->
-
+    <app-question-page [students]="students()" />
   }@else{
   <button class="add-student__button" (click)="openCreateStudent()">+</button>
   @for (student of students(); track student.id) { <app-student-item [student]="student" />}

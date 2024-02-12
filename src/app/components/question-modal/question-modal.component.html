@@ -15,8 +15,11 @@
     <button role="button" (click)="$event.preventDefault();deleteAnswer(i)" class="btn btn-danger">X</button>
   </div>
   }
-  @if (reponses.length < 4) { <button (click)="$event.preventDefault(); addResponse()" class="btn">Ajouter une
-    réponse</button>
-    }
+  @if (reponses.length < 4) { 
+    <button (click)="$event.preventDefault(); addResponse()" class="btn">Ajouter une réponse</button>
+  }
+  @if (reponses.length >= 1) { 
     <input type="submit" class="btn btn-success" value="Envoyer la question">
+  }
+
 </form>

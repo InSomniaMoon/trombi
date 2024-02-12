@@ -15,6 +15,7 @@ import { QuestionService } from './core/services/question.service';
 import { StudentService } from './core/services/student.service';
 import { WebSocketService } from './core/services/web-socket.service';
 import { Student } from './core/types/student.type';
+import { QuestionPageComponent } from './components/question-page/question-page.component';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,7 @@ import { Student } from './core/types/student.type';
     ToastContainerComponent,
     QuestionModalComponent,
     InfoModalComponent,
+    QuestionPageComponent
   ],
 
   templateUrl: './app.component.html',
