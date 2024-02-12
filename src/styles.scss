@@ -95,6 +95,10 @@ form {
   padding: .5rem 1rem;
   transition: all 0.3s ease 0s;
 
+  &:hover {
+    background-color: #bbb;
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -129,4 +133,16 @@ form {
 
 .form-control {
   flex: 1;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

@@ -1,0 +1,106 @@
+.new-toast {
+  animation: append-animate .3s;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 320px;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+}
+
+.toast-info {
+  color: rgb(75 85 99);
+  background-color: rgb(209 213 2192);
+}
+
+.toast-success {
+  color: rgb(5 122 85);
+  background-color: rgb(132 225 188);
+}
+
+.toast-warning {
+  color: rgb(255 90 31);
+  background-color: rgb(253 186 140);
+}
+
+.toast-danger {
+  color: rgb(248 180 180);
+  background-color: rgb(248 180 180);
+}
+
+.toast {
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+
+  &-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &-body {
+    margin-left: 12px;
+    font-size: 14px;
+    line-height: 20px;
+
+    &-title {
+      margin-bottom: 4px;
+      font-weight: 600;
+      color: rgb(17 24 39);
+    }
+
+    &-message {
+      margin-bottom: 8px;
+    }
+  }
+
+  &-dismiss-button {
+    margin-left: auto;
+    color: rgb(156 163 175);
+    border-radius: 8px;
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+
+    &:hover {
+      color: rgb(17 24 39);
+      background-color: rgb(243 244 246);
+
+    }
+  }
+}
+
+@keyframes append-animate {
+  from {
+    transform: translate3d(-50%, 0, 0);
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes remove-animate {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.remove-toast {
+  animation-name: remove-animate;
+}

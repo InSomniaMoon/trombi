@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -11,12 +11,30 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   <div></div>
   <h1>Trombinosope</h1>
   <div class="buttons-wrapper">
-    <button class="question">?</button>
-    <button class="information">i</button>
+    <button (click)="question()" class="question">?</button>
+    <button (click)="info()" class="information">i</button>
   </div>
   `,
 
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent { }
+export class NavbarComponent {
+
+  @Output("openInfo")
+  private openInfoEvent = new EventEmitter<void>();
+
+  @Output("openQuestion")
+  private openQuestion = new EventEmitter<void>();
+
+  info() {
+    console.log("info")
+    this.openInfoEvent.emit();
+  }
+
+  question() {
+    this.openQuestion.emit()
+  }
+
+
+}

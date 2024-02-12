@@ -2,6 +2,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { Injectable, PLATFORM_ID, inject } from "@angular/core";
 import { Socket } from 'ngx-socket-io';
 import { BehaviorSubject } from "rxjs";
+import { ToastService } from "../Toastr";
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class WebSocketService {
   private socket!: Socket;
   private isConnectedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   // check if platform is browser
-  constructor() {
+  constructor(private $toast: ToastService) {
     if (!isPlatformBrowser(inject(PLATFORM_ID))) {
       return;
     }
@@ -33,7 +34,13 @@ export class WebSocketService {
     this.socket.on('users', (data: any[]) => {
       this.users.next(data.filter((user: any) => user.id !== this.me.value));
     });
-    
+
+    this.socket.on("info", (data: any) => {
+      console.log('info recieved', data);
+      this.$toast.info(data.message);
+    });
+
+
     this.isConnectedSubject.next(true);
     this.send("/login", { type: 'login', username });
 
