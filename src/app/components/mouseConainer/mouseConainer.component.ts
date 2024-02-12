@@ -23,7 +23,6 @@ export class MouseConainerComponent implements OnInit {
   users: WritableSignal<User[]> = signal([])
   ngOnInit(): void {
     this.$ws.users.subscribe((u) => {
-      console.log('users', u);
       this.users.set(u);
     }
     )
