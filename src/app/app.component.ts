@@ -11,6 +11,7 @@ import { QuestionModalComponent } from './components/question-modal/question-mod
 import { StudentItemDetailsComponent } from './components/student-item-details/student-item-details.component';
 import { StudentItemComponent } from './components/student-item/student-item.component';
 import { ToastContainerComponent, ToastService } from './core/Toastr';
+import { QuestionService } from './core/services/question.service';
 import { StudentService } from './core/services/student.service';
 import { WebSocketService } from './core/services/web-socket.service';
 import { Student } from './core/types/student.type';
@@ -36,12 +37,12 @@ import { Student } from './core/types/student.type';
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [ToastService, WebSocketService, StudentService]
+  providers: [ToastService, WebSocketService, StudentService, QuestionService]
 })
 export class AppComponent {
   title = 'Trombinoscope';
 
-  constructor(private $Student: StudentService, private $WebSocket: WebSocketService) {
+  constructor(private $Student: StudentService, private $WebSocket: WebSocketService, private $Question: QuestionService) {
   }
   @HostListener('window: beforeunload',)
   beforeUnloadHandler() {
@@ -89,5 +90,9 @@ export class AppComponent {
 
   isConnected() {
     return this.$WebSocket.isConnected();
+  }
+
+  isQuestionSent() {
+    return this.$Question.isQuestionSent();
   }
 }

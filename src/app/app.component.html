@@ -1,10 +1,16 @@
 @if (isConnected()|async) {
-  
+
 <app-navbar (openInfo)="openSendInformation()" (openQuestion)="openAskQuestion()" />
-<button class="add-student__button" (click)="openCreateStudent()">+</button>
 <main>
+  @if (isQuestionSent()|async) {
+  <!-- TODO: faire la page de questions -->
+
+  }@else{
+  <button class="add-student__button" (click)="openCreateStudent()">+</button>
   @for (student of students(); track student.id) { <app-student-item [student]="student" />}
+  }
 </main>
+
 <app-modal [ngClass]="{'show': isDetailsOpen()}" HeadTitle="Student Details" (onModalClose)="closeStudentDetails()">
   <app-student-item-details />
 </app-modal>
@@ -12,9 +18,10 @@
   <app-create-student (onModalClose)="closeCreateStudent()" />
 </app-modal>
 <app-modal [ngClass]="{'show': showAskQuestion()}" HeadTitle="Poser une question" (onModalClose)="closeAskQuestion()">
-  <app-question-modal (closeModal)="closeAskQuestion()"/>
+  <app-question-modal (closeModal)="closeAskQuestion()" />
 </app-modal>
-<app-modal [ngClass]="{'show': showSendInformation()}" HeadTitle="Donner une info" (onModalClose)="closeSendInformation()">
+<app-modal [ngClass]="{'show': showSendInformation()}" HeadTitle="Donner une info"
+  (onModalClose)="closeSendInformation()">
   <app-info-modal (closeModal)="closeSendInformation()" />
 </app-modal>
 <app-mouse-conainer />
