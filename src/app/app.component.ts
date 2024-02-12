@@ -1,13 +1,16 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { Component, HostListener, Signal, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { InfoModalComponent } from './components/InfoModal/InfoModal.component';
 import { CreateStudentComponent } from './components/create-student/create-student.component';
 import { LoginComponent } from './components/login/login.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { MouseConainerComponent } from './components/mouseConainer/mouseConainer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { QuestionModalComponent } from './components/question-modal/question-modal.component';
 import { StudentItemDetailsComponent } from './components/student-item-details/student-item-details.component';
 import { StudentItemComponent } from './components/student-item/student-item.component';
+import { ToastContainerComponent, ToastService } from './core/Toastr';
 import { StudentService } from './core/services/student.service';
 import { WebSocketService } from './core/services/web-socket.service';
 import { Student } from './core/types/student.type';
@@ -26,17 +29,22 @@ import { Student } from './core/types/student.type';
     NavbarComponent,
     CommonModule,
     MouseConainerComponent,
+    ToastContainerComponent,
+    QuestionModalComponent,
+    InfoModalComponent,
   ],
+
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  providers: [ToastService, WebSocketService, StudentService]
 })
 export class AppComponent {
   title = 'Trombinoscope';
 
   constructor(private $Student: StudentService, private $WebSocket: WebSocketService) {
   }
-  @HostListener('window: beforeunload', ['$event'])
-  beforeUnloadHandler(event: any) {
+  @HostListener('window: beforeunload',)
+  beforeUnloadHandler() {
     this.$WebSocket.disconnect();
   }
 
@@ -46,7 +54,6 @@ export class AppComponent {
     this.$WebSocket.send('/mousemove', { x: event.clientX, y: event.clientY });
   }
 
-  showCreateStudent = signal(false);
 
   students: Signal<Student[]> = this.$Student.students;
 
@@ -56,12 +63,29 @@ export class AppComponent {
     this.$Student.selectedStudent.update(() => null);
   }
 
+  showCreateStudent = signal(false);
   openCreateStudent() {
     this.showCreateStudent.set(true);
   }
   closeCreateStudent() {
     this.showCreateStudent.set(false);
   }
+  showAskQuestion = signal(false);
+  openAskQuestion() {
+    this.showAskQuestion.set(true);
+  }
+  closeAskQuestion() {
+    this.showAskQuestion.set(false);
+  }
+
+  showSendInformation = signal(false);
+  openSendInformation() {
+    this.showSendInformation.set(true);
+  }
+  closeSendInformation() {
+    this.showSendInformation.set(false);
+  }
+
 
   isConnected() {
     return this.$WebSocket.isConnected();

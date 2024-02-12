@@ -1,0 +1,22 @@
+<form #QuestionForm="ngForm" (ngSubmit)="onSubmit(QuestionForm)">
+  <div class="form-group">
+    <input type="text" id="question" placeholder="" name="question" [ngModel] class="form-control">
+    <label for="question">Question</label>
+  </div>
+
+
+  @for (reponse of reponses; track i; let i = $index) {
+  <div class="row-wrapper">
+    <div class="form-group">
+      <input type="text" [id]="'answer' + i" [ngModelOptions]="{standalone: true}" [(ngModel)]="reponses[i]"
+        placeholder="" class="form-control">
+      <label [for]="'answer' + i">Réponse {{i + 1}}</label>
+    </div>
+    <button role="button" (click)="$event.preventDefault();deleteAnswer(i)" class="btn btn-danger">X</button>
+  </div>
+  }
+  @if (reponses.length < 4) { <button (click)="$event.preventDefault(); addResponse()" class="btn">Ajouter une
+    réponse</button>
+    }
+    <input type="submit" class="btn btn-success" value="Envoyer la question">
+</form>
