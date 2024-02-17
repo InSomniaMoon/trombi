@@ -66,7 +66,7 @@ async def chat_message(sid, data):
     # condition pour n'avoir qu'une question à la fois
     if question is not None:
         return
-    data = json.loads(data)["message"]
+    data = json.loads(data)
     data['askerId'] = sid
     question = data
     print('askQuestion from ', sid, data)
