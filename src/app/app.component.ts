@@ -8,14 +8,13 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MouseConainerComponent } from './components/mouseConainer/mouseConainer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { QuestionModalComponent } from './components/question-modal/question-modal.component';
+import { QuestionPageComponent } from './components/question-page/question-page.component';
 import { StudentItemDetailsComponent } from './components/student-item-details/student-item-details.component';
 import { StudentItemComponent } from './components/student-item/student-item.component';
 import { ToastContainerComponent, ToastService } from './core/Toastr';
-import { QuestionService } from './core/services/question.service';
 import { StudentService } from './core/services/student.service';
 import { WebSocketService } from './core/services/web-socket.service';
 import { Student } from './core/types/student.type';
-import { QuestionPageComponent } from './components/question-page/question-page.component';
 
 @Component({
   selector: 'app-root',
@@ -39,12 +38,12 @@ import { QuestionPageComponent } from './components/question-page/question-page.
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [ToastService, WebSocketService, StudentService, QuestionService]
+  providers: [ToastService, WebSocketService, StudentService]
 })
 export class AppComponent {
   title = 'Trombinoscope';
 
-  constructor(private $Student: StudentService, private $WebSocket: WebSocketService, private $Question: QuestionService) {
+  constructor(private $Student: StudentService, private $WebSocket: WebSocketService) {
   }
   @HostListener('window: beforeunload',)
   beforeUnloadHandler() {
@@ -95,6 +94,6 @@ export class AppComponent {
   }
 
   isQuestionSent() {
-    return this.$Question.isQuestionSent();
+    return this.$WebSocket.askingQuestion();
   }
 }

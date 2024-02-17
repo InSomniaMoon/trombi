@@ -3,6 +3,7 @@ import { Injectable, PLATFORM_ID, inject } from "@angular/core";
 import { Socket } from 'ngx-socket-io';
 import { BehaviorSubject } from "rxjs";
 import { ToastService } from "../Toastr";
+import { Question } from "../types/question.type";
 
 
 @Injectable({
@@ -11,6 +12,12 @@ import { ToastService } from "../Toastr";
 export class WebSocketService {
   private socket!: Socket;
   private isConnectedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isConnected = () => this.isConnectedSubject.asObservable();
+  private askingQuestionSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  askingQuestion = () => this.askingQuestionSubject.asObservable();
+  private questionSubject: BehaviorSubject<Question> = new BehaviorSubject<Question>({ question: "", answers: [], id: "" });
+  question = () => this.questionSubject.asObservable();
+
   // check if platform is browser
   constructor(private $toast: ToastService) {
     if (!isPlatformBrowser(inject(PLATFORM_ID))) {
@@ -40,6 +47,15 @@ export class WebSocketService {
       this.$toast.info(data.message);
     });
 
+    this.socket.on("questionAsked", (data: any) => {
+      console.log('questionAsked', data);
+      this.askingQuestionSubject.next(true);
+    });
+
+    this.socket.on("peopleAnswered", (data: any) => {
+      console.log('peopleAnswered', data);
+      this.questionSubject.next(data);
+    });
 
     this.isConnectedSubject.next(true);
     this.send("/login", { type: 'login', username });
@@ -49,11 +65,6 @@ export class WebSocketService {
   disconnect() {
     this.isConnectedSubject.next(false);
     this.send("/leave", {});
-  }
-
-
-  isConnected() {
-    return this.isConnectedSubject.asObservable();
   }
 
   public send(channel: string, data: any) {

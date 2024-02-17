@@ -7,9 +7,13 @@ sio = socketio.AsyncServer(cors_allowed_origins='*')
 app = web.Application()
 sio.attach(app)
 
+
 users = []
 # contient une question, ses réponses et l'id du questionneur
 question = None
+
+
+app.router.add_get('/users', lambda request: web.json_response(users))
 
 
 @sio.on('/login')
@@ -51,17 +55,23 @@ async def chat_message(sid, data):
     un user envoie une question, tout le monde reçoit la notification.
     la question est composée du texte et des réponses.
     """
+    global question
     # condition pour n'avoir qu'une question à la fois
     if question is not None:
         return
     data = json.loads(data)
-
+    data['askerId'] = sid
+    question = data
     print('askQuestion from ', sid, data)
-    await sio.emit('askQuestion', data=data)
+    await sio.emit('questionAsked', data=data)
 
 
 @sio.on("/closeQuestion")
 async def close_question(sid):
+    """
+    le questionneur ferme la question
+    """
+    global question
     if question["askerId"] == sid:
         question = None
         sio.emit("closedQuestion")
