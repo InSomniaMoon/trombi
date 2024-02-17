@@ -1,6 +1,5 @@
 import { AsyncPipe, NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { Component } from '@angular/core';
 import { ToastService } from '../toast.service';
 import { ToastComponent } from '../toast/toast.component';
 
@@ -26,7 +25,7 @@ import { ToastComponent } from '../toast/toast.component';
   ]
 
 })
-export class ToastContainerComponent implements OnInit {
+export class ToastContainerComponent {
 
   constructor(private $toast: ToastService) { }
   public get toasts() {
@@ -34,9 +33,12 @@ export class ToastContainerComponent implements OnInit {
   }
 
   public dismiss = (uid: string) => {
-    this.$toast.remove(uid)
+    // wait for the animation to finish
+    setTimeout(() => {
+      this.$toast.remove(uid)
+    }, 300)
+
   }
-  ngOnInit(): void {
-  }
+
 
 }
