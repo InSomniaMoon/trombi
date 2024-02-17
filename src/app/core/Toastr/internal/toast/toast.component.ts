@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'toastr-toast',
@@ -19,6 +19,8 @@ export class ToastComponent implements OnInit, AfterViewInit {
   @ViewChild('toast') toast!: ElementRef;
   @ViewChild('dismissButton') dismissButton!: ElementRef;
 
+  @Output() onDismiss = new EventEmitter();
+
 
   constructor() { }
 
@@ -26,9 +28,10 @@ export class ToastComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // setTimeout((_: any) => {
-    //   this.close()
-    // }, 3000);
+    setTimeout((_: any) => {
+      this.close()
+      this.onDismiss.emit(this.uid);
+    }, 3000);
   }
 
   close = () => {

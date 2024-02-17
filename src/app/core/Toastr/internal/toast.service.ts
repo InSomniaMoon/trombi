@@ -39,4 +39,8 @@ export class ToastService {
     ]);
   }
 
+  public remove(uid: string) {
+    this.toastsSubject.next(this.toastsSubject.value.filter(t => t.uuid !== uid))
+  }
+
 }

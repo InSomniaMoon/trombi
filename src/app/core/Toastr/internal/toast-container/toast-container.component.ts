@@ -12,7 +12,8 @@ import { ToastComponent } from '../toast/toast.component';
     [uid]=toast.uuid 
     [message]=toast.message 
     [type]=toast.type
-    [title]=toast.title />
+    [title]=toast.title
+    (onDismiss)="dismiss($event)" />
   }
     `,
 
@@ -32,6 +33,9 @@ export class ToastContainerComponent implements OnInit {
     return this.$toast.getAll()
   }
 
+  public dismiss = (uid: string) => {
+    this.$toast.remove(uid)
+  }
   ngOnInit(): void {
   }
 
