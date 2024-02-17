@@ -17,7 +17,7 @@ export class WebSocketService {
       return;
     }
     this.socket = new Socket({
-      url: 'ws://localhost:8080'
+      url: 'ws://192.168.1.122:8080'
     });
     this.socket.connect();
 
