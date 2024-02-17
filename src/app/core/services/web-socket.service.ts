@@ -65,6 +65,12 @@ export class WebSocketService {
       this.questionSubject.next(data);
     });
 
+    this.socket.on("questionClosed", (data: any) => {
+      console.log('questionClosed', data);
+      this.askingQuestionSubject.next(false);
+      this.questionSubject.next({ question: "", answers: [], id: "" });
+    });
+
     this.isConnectedSubject.next(true);
     this.send("/login", { type: 'login', username });
 

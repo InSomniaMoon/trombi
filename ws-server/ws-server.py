@@ -14,13 +14,15 @@ question = None
 
 
 app.router.add_get('/users', lambda request: web.json_response(users))
+app.router.add_get('/question', lambda request: web.json_response(question))
 
 
 @sio.on('/login')
 async def login(sid, data):
+    global question
     data = json.loads(data)
-    await sio.emit('me', to=sid, data={'id': sid, 'name': data['username']})
-    print("login ", sid)
+    await sio.emit('me', to=sid, data={'id': sid, 'name': data['username'], 'question': question})
+    print("login ", sid, data['username'])
     users.append(
         {'id': sid, 'name': data['username'], 'position': [0, 0]})
     await sio.emit('users', data=users, )
@@ -30,11 +32,16 @@ async def login(sid, data):
 
 @sio.on('/leave')
 async def disconnect(sid, data):
-    print('disconnect ', sid)
+
+    print('disconnect ', sid, data)
+    global question
     for user in users:
         if user['id'] == sid:
             users.remove(user)
             break
+    if question is not None and question['askerId'] == sid:
+        question = None
+        await sio.emit('closedQuestion')
     await sio.emit('users', data=users)
 
 
@@ -59,7 +66,7 @@ async def chat_message(sid, data):
     # condition pour n'avoir qu'une question à la fois
     if question is not None:
         return
-    data = json.loads(data)
+    data = json.loads(data)["message"]
     data['askerId'] = sid
     question = data
     print('askQuestion from ', sid, data)
