@@ -34,9 +34,16 @@ export class WebSocketService {
   me: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   connect({ username }: any) {
+
     this.socket.on('me', (data: any) => {
       console.log('me', data);
+      if (data.question) {
+        this.questionSubject.next(data.question);
+        this.askingQuestionSubject.next(true);
+      }
+
       this.me.next(data.id);
+
     });
     this.socket.on('users', (data: any[]) => {
       this.users.next(data.filter((user: any) => user.id !== this.me.value));
@@ -50,6 +57,7 @@ export class WebSocketService {
     this.socket.on("questionAsked", (data: any) => {
       console.log('questionAsked', data);
       this.askingQuestionSubject.next(true);
+      this.questionSubject.next(data);
     });
 
     this.socket.on("peopleAnswered", (data: any) => {
