@@ -24,7 +24,7 @@ export class QuestionModalComponent {
   constructor(private $websocket: WebSocketService) { }
 
   onSubmit(form: NgForm) {
-    this.$websocket.send("/askQuestion", { message: { question: form.value.question, answers: this.reponses } });
+    this.$websocket.send("/askQuestion", { question: form.value.question, answers: this.reponses });
     form.reset();
     this.reponses = [''];
     this.closeModal.emit();
