@@ -1,6 +1,6 @@
 <ng-container *ngIf="question|async as que">
     {{que|json}}
-    <div class="main-question-page">
+    <div class="main-question-page" #screen>
         <div class="question-container">
             <div class="question-title">{{que.question}}</div>
             <button (click)="removeQuestion()">Supprimer la question</button>
