@@ -1,1 +1,19 @@
-<p>question-page works!</p>
+<ng-container *ngIf="question|async as que">
+    {{que|json}}
+    <div class="main-question-page">
+        <div class="question-container">
+            <div class="question-title">{{que.question}}</div>
+            <button (click)="removeQuestion()">Supprimer la question</button>
+        </div>
+        <div class="answers-container">
+            @for (answer of que.answers; track $index) {
+            <div class="answer" (click)="chooseAnswer($index)" [ngClass]="{selected: answerSelected == $index}">
+                {{answer}}
+            </div>
+            }
+        </div>
+        <div class="save-container">
+            <button (click)="saveQuestion()">Enregistrer</button>
+        </div>
+    </div>
+</ng-container>
