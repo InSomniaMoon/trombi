@@ -74,14 +74,14 @@ async def chat_message(sid, data):
 
 
 @sio.on("/closeQuestion")
-async def close_question(sid):
+async def close_question(sid, data):
     """
     le questionneur ferme la question
     """
     global question
-    if question["askerId"] == sid:
+    if question is not None and question["askerId"] == sid:
         question = None
-        sio.emit("closedQuestion")
+        await sio.emit("questionClosed")
 
 
 @sio.on("/info")
