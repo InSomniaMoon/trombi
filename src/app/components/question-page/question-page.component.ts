@@ -4,6 +4,7 @@ import { NgxCaptureModule, NgxCaptureService } from "ngx-capture";
 import { Observable } from 'rxjs';
 import { WebSocketService } from '../../core/services/web-socket.service';
 import { Question } from '../../core/types/question.type';
+import { User } from '../../core/types/user.type';
 
 @Component({
   selector: 'app-question-page',
@@ -45,11 +46,14 @@ export class QuestionPageComponent implements OnInit {
   }
 
   chooseAnswer(index: number) {
+    this.webService.send("/answerQuestion", { answer: index });
     if (this.answerSelected != null) {
       this.answersSelected[this.answerSelected] -= 1;
     }
     this.answerSelected = index;
     this.answersSelected[index] += 1;
   }
-
+  user(): Observable<User> {
+    return this.webService.me.asObservable();
+  }
 }

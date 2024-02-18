@@ -1,15 +1,22 @@
 <ng-container *ngIf="question|async as que">
-    <!-- {{que|json}} -->
+    {{user()|async|json}}
     <div class="main-question-page" #screen>
         <div class="question-container">
             <div class="question-title">{{que.question}}</div>
+            @if (que.askerId == (user()|async)?.id) {
             <button (click)="removeQuestion()" class="btn btn-danger">Supprimer la question</button>
+            }
         </div>
         <div class="answers-container">
             @for (answer of que.answers; track $index) {
             <div class="answer" (click)="chooseAnswer($index)"
                 [ngClass]="{selected: answerSelected == $index, answer1: que.answers.length == 1, answer2: que.answers.length == 2, answer3: que.answers.length >= 3}">
-                {{answer}} <div>{{ this.answersSelected[$index] }}</div>
+                {{answer.name}}
+                <span class="answer__amount">{{ answer.users.length}}</span>
+                @for (user of answer.users; track $index) {
+                <div class="answer__user">
+                    {{user.name}}</div>
+                }
             </div>
             }
         </div>

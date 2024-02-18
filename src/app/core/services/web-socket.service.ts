@@ -4,6 +4,7 @@ import { Socket } from 'ngx-socket-io';
 import { BehaviorSubject } from "rxjs";
 import { ToastService } from "../Toastr";
 import { Question } from "../types/question.type";
+import { User } from "../types/user.type";
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class WebSocketService {
   isConnected = () => this.isConnectedSubject.asObservable();
   private askingQuestionSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   askingQuestion = () => this.askingQuestionSubject.asObservable();
-  private questionSubject: BehaviorSubject<Question> = new BehaviorSubject<Question>({ question: "", answers: [], id: "" });
+  private questionSubject: BehaviorSubject<Question> = new BehaviorSubject<Question>({ question: "", answers: [], askerId: "" });
   question = () => this.questionSubject.asObservable();
 
   // check if platform is browser
@@ -24,19 +25,20 @@ export class WebSocketService {
       return;
     }
     this.socket = new Socket({
-      url: 'wss://f13c-2001-861-3a09-e920-742a-3448-a59d-c10.ngrok-free.app',
-      options: {
-        extraHeaders: {
-          "ngrok-skip-browser-warning": "1",
-        }
-      }
+      // url: 'wss://e881-2001-861-3a09-e920-742a-3448-a59d-c10.ngrok-free.app',
+      url: 'ws://localhost:8080',
+      // options: {
+      //   extraHeaders: {
+      //     "ngrok-skip-browser-warning": "1",
+      //   }
+      // }
     });
     this.socket.connect();
 
   }
 
   users: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  me: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  me: BehaviorSubject<User> = new BehaviorSubject<User>({ id: "", name: "", position: [0, 0] });
 
   connect({ username }: any) {
 
@@ -47,11 +49,11 @@ export class WebSocketService {
         this.askingQuestionSubject.next(true);
       }
 
-      this.me.next(data.id);
+      this.me.next({ id: data.id, name: data.name, position: [0, 0] });
 
     });
     this.socket.on('users', (data: any[]) => {
-      this.users.next(data.filter((user: any) => user.id !== this.me.value));
+      this.users.next(data.filter((user: any) => user.id !== this.me.value.id));
     });
 
     this.socket.on("info", (data: any) => {
@@ -73,7 +75,7 @@ export class WebSocketService {
     this.socket.on("questionClosed", (data: any) => {
       console.log('questionClosed', data);
       this.askingQuestionSubject.next(false);
-      this.questionSubject.next({ question: "", answers: [], id: "" });
+      this.questionSubject.next({ question: "", answers: [], askerId: "" });
     });
 
     this.isConnectedSubject.next(true);

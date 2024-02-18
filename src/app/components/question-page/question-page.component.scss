@@ -35,11 +35,22 @@
     margin: 10px;
     padding: 10px;
     text-align: center;
-}
+    position: relative;
 
-.answer div {
-    margin-bottom: 50vh;
-    margin-left: 45vw;
+    &__amount {
+        font-size: 1.5rem;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    &__user {
+        font-size: 1.5rem;
+        font-weight: bold;
+        width: fit-content;
+
+    }
 }
 
 .answer1 {

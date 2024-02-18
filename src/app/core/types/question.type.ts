@@ -1,10 +1,12 @@
+import { User } from "./user.type";
+
 export interface Question {
-  id: string;
+  askerId: string;
   question: string;
   answers: Answer[];
 }
 
 export interface Answer {
   name: string;
-  answeredPeopleId: string[];
+  users: User[];
 }

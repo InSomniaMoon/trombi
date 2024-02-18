@@ -8,13 +8,13 @@ app = web.Application()
 sio.attach(app)
 
 
-users = []
-# contient une question, ses réponses et l'id du questionneur
 question = None
 
+users = []
 
 app.router.add_get('/users', lambda request: web.json_response(users))
-app.router.add_get('/question', lambda request: web.json_response(question))
+app.router.add_get(
+    '/question', lambda request: web.json_response(question if question is not None else {}))
 
 
 @sio.on('/login')
@@ -62,15 +62,43 @@ async def chat_message(sid, data):
     un user envoie une question, tout le monde reçoit la notification.
     la question est composée du texte et des réponses.
     """
+
     global question
     # condition pour n'avoir qu'une question à la fois
     if question is not None:
         return
     data = json.loads(data)
     data['askerId'] = sid
+    data['answers'] = list(map(lambda x: {
+        'name': x, 'users': []}, data['answers']))
     question = data
     print('askQuestion from ', sid, data)
     await sio.emit('questionAsked', data=data)
+
+
+@sio.on('/answerQuestion')
+async def chat_message(sid, data):
+    """
+    un user envoie une réponse à la question, tout le monde reçoit la notification.
+    """
+    print('answerQuestion from ', sid, data)
+    global question
+    if question is not None:
+        data = json.loads(data)
+        # on verifie si le sid n'était pas déjà dans une quesiton, sinon on l'enleve des autres quesitons
+        for answer in question['answers']:
+            answer['users'] = list(
+                filter(lambda x: x["id"] != sid, answer['users']))
+
+        # on ajoute le user à la question
+        for user in users:
+            if user['id'] == sid:
+                question['answers'][data['answer']]['users'].append(
+                    {'id': sid, 'name': user['name']})
+                break
+
+        print('answerQuestion from ', sid, data)
+        await sio.emit('peopleAnswered', data=question)
 
 
 @sio.on("/closeQuestion")
