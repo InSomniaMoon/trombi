@@ -1,15 +1,16 @@
 @if (isConnected()|async) {
 
 <app-navbar (openInfo)="openSendInformation()" (openQuestion)="openAskQuestion()" />
+
+@if (isQuestionSent()|async) {
+<app-question-page />
+}@else{
 <main>
-  @if (isQuestionSent()|async) {
-  <!-- TODO: faire la page de questions -->
-  <app-question-page />
-  }@else{
   <button class="add-student__button" (click)="openCreateStudent()">+</button>
   @for (student of students(); track student.id) { <app-student-item [student]="student" />}
-  }
 </main>
+}
+
 
 <app-modal [ngClass]="{'show': isDetailsOpen()}" HeadTitle="Student Details" (onModalClose)="closeStudentDetails()">
   <app-student-item-details />

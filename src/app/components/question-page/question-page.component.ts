@@ -15,13 +15,19 @@ import { Question } from '../../core/types/question.type';
 export class QuestionPageComponent implements OnInit {
 
   question!: Observable<Question>;
-  answerSelected!: Number;
+
+  answerSelected!: number;
   @ViewChild('screen') screen!: any;
+  answersSelected!: number[];
 
   constructor(private webService: WebSocketService, private captureService: NgxCaptureService) { }
 
   ngOnInit(): void {
     this.question = this.webService.question();
+    this.question.subscribe((que) => {
+      let nbAnswers = que.answers.length;
+      this.answersSelected = Array(nbAnswers).fill(0);
+    });
   }
 
   removeQuestion() {
@@ -29,22 +35,21 @@ export class QuestionPageComponent implements OnInit {
   }
 
   saveQuestion() {
-    //capture
-    // console.log(this.screen);
-
     this.captureService.getImage(this.screen.nativeElement, true).subscribe((img) => {
       console.log(img);
       let a = document.createElement("a")
       a.href = img
       a.download = "answer"
       a.click()
-
     });
-    this.webService.send("/closeQuestion", {});
   }
 
   chooseAnswer(index: number) {
+    if (this.answerSelected != null) {
+      this.answersSelected[this.answerSelected] -= 1;
+    }
     this.answerSelected = index;
+    this.answersSelected[index] += 1;
   }
 
 }
