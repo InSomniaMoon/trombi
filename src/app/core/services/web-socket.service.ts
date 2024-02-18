@@ -24,7 +24,12 @@ export class WebSocketService {
       return;
     }
     this.socket = new Socket({
-      url: 'ws://localhost:8080'
+      url: 'wss://f13c-2001-861-3a09-e920-742a-3448-a59d-c10.ngrok-free.app',
+      options: {
+        extraHeaders: {
+          "ngrok-skip-browser-warning": "1",
+        }
+      }
     });
     this.socket.connect();
 
