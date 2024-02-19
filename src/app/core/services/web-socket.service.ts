@@ -25,13 +25,13 @@ export class WebSocketService {
       return;
     }
     this.socket = new Socket({
-      // url: 'wss://e881-2001-861-3a09-e920-742a-3448-a59d-c10.ngrok-free.app',
-      url: 'ws://localhost:8080',
-      // options: {
-      //   extraHeaders: {
-      //     "ngrok-skip-browser-warning": "1",
-      //   }
-      // }
+      url: 'wss://93d8-89-35-213-206.ngrok-free.app',
+      // url: 'ws://localhost:8080',
+      options: {
+        extraHeaders: {
+          "ngrok-skip-browser-warning": "1",
+        }
+      }
     });
     this.socket.connect();
 
