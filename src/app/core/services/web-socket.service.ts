@@ -25,7 +25,7 @@ export class WebSocketService {
       return;
     }
     this.socket = new Socket({
-      url: 'wss://93d8-89-35-213-206.ngrok-free.app',
+      url: 'wss://b4ea-89-35-213-206.ngrok-free.app',
       // url: 'ws://localhost:8080',
       options: {
         extraHeaders: {

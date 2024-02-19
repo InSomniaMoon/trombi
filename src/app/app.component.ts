@@ -45,9 +45,10 @@ export class AppComponent {
 
   constructor(private $Student: StudentService, private $WebSocket: WebSocketService) {
   }
-  @HostListener('window: beforeunload',)
-  beforeUnloadHandler() {
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler($event: any) {
     this.$WebSocket.disconnect();
+    return false;
   }
 
   // on mouse move get the mouse position
