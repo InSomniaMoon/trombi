@@ -25,8 +25,8 @@ export class WebSocketService {
       return;
     }
     this.socket = new Socket({
-      url: 'wss://b4ea-89-35-213-206.ngrok-free.app',
-      // url: 'ws://localhost:8080',
+      // url: 'wss://b4ea-89-35-213-206.ngrok-free.app',
+      url: 'ws://localhost:8080',
       options: {
         extraHeaders: {
           "ngrok-skip-browser-warning": "1",
@@ -81,11 +81,6 @@ export class WebSocketService {
     this.isConnectedSubject.next(true);
     this.send("/login", { type: 'login', username });
 
-  }
-
-  disconnect() {
-    this.isConnectedSubject.next(false);
-    this.send("/leave", {});
   }
 
   public send(channel: string, data: any) {

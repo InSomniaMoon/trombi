@@ -12,6 +12,20 @@ question = None
 
 users = []
 
+
+@sio.event
+async def disconnect(sid):
+    print('disconnect ', sid)
+    global question
+    for user in users:
+        if user['id'] == sid:
+            users.remove(user)
+            break
+    if question is not None and question['askerId'] == sid:
+        question = None
+        await sio.emit('closedQuestion')
+    await sio.emit('users', data=users)
+
 app.router.add_get('/users', lambda request: web.json_response(users))
 app.router.add_get(
     '/question', lambda request: web.json_response(question if question is not None else {}))
@@ -31,9 +45,9 @@ async def login(sid, data):
 
 
 @sio.on('/leave')
-async def disconnect(sid, data):
+async def leave(sid, data):
 
-    print('disconnect ', sid, data)
+    print('leave ', sid, data)
     global question
     for user in users:
         if user['id'] == sid:
